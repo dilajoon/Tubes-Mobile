@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wisata_app/Register/login.dart';
+import 'package:wisata_app/screen/login.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -19,7 +19,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _startPageViewAutoScroll() {
-    Future.delayed(const Duration(seconds: 3), () { //waktu
+    Future.delayed(const Duration(seconds: 3), () {
+      //waktu
       _pageController.animateToPage(
         _currentPage + 1,
         duration: const Duration(milliseconds: 300), //waktu
@@ -37,8 +38,9 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[ 
-            SizedBox( //bagian gambar
+          children: <Widget>[
+            SizedBox(
+              //bagian gambar
               height: 400,
               child: PageView(
                 controller: _pageController,
@@ -79,18 +81,18 @@ class _HomeScreenState extends State<HomeScreen> {
             ElevatedButton(
               onPressed: () {
                 // navigation to LoginPage
-                Navigator.push(context, MaterialPageRoute
-                (builder: (context) => const LoginPage()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const LoginPage()));
               },
               style: ElevatedButton.styleFrom(
                 primary: Colors.black,
               ),
-              child: Text('Next',
-              style: TextStyle(
-                color: Colors.white,
-              ) ,
+              child: Text(
+                'Next',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
               ),
-
             ),
           ],
         ),
@@ -98,4 +100,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-

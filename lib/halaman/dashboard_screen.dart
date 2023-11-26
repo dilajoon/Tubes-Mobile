@@ -129,8 +129,10 @@ class DashboardPage extends StatelessWidget {
                     return GestureDetector(
                       onTap: () {
                         print('${catNames[index]}');
-                        Navigator.push(context, MaterialPageRoute
-                        (builder: (context) => Penginapan()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Penginapan()));
 
                         // Lakukan aksi yang diinginkan saat kategori ditekan
                       },
@@ -193,12 +195,13 @@ class DashboardPage extends StatelessWidget {
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     childAspectRatio:
-                        (MediaQuery.of(context).size.height - 50 - 25) / (4 * 240),
+                        (MediaQuery.of(context).size.height - 50 - 25) /
+                            (4 * 240),
                     mainAxisSpacing: 15,
                     crossAxisSpacing: 10,
                   ),
                   itemBuilder: (context, index) {
-                    return InkWell( 
+                    return InkWell(
                       child: Container(
                         padding:
                             EdgeInsets.symmetric(vertical: 10, horizontal: 10),
