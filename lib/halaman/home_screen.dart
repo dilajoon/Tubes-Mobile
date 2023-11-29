@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wisata_app/Register/login.dart';
+import 'package:wisata_app/halaman/dashboard_screen.dart';
+import 'package:wisata_app/halaman/wisata_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -19,13 +21,14 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _startPageViewAutoScroll() {
-    Future.delayed(const Duration(seconds: 3), () { //waktu
-      _pageController.animateToPage(
-        _currentPage + 1,
-        duration: const Duration(milliseconds: 300), //waktu
-        curve: Curves.easeIn,
-      );
-      _startPageViewAutoScroll();
+    Future.delayed(const Duration(seconds: 3), () {
+      if (_currentPage < 3) { // Check to prevent exceeding the page count
+        _pageController.animateToPage(
+          _currentPage + 1,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeIn,
+        );
+      }
     });
   }
 
@@ -37,8 +40,8 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[ 
-            SizedBox( //bagian gambar
+          children: <Widget>[
+            SizedBox(
               height: 400,
               child: PageView(
                 controller: _pageController,
@@ -66,31 +69,37 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 230,
                     fit: BoxFit.cover,
                   ),
-                  Image.asset(
-                    'images/logoawal.jpg',
-                    width: 54,
-                    height: 500,
-                    fit: BoxFit.cover,
-                  ),
                 ],
               ),
             ),
-            SizedBox(height: 40),
-            ElevatedButton(
-              onPressed: () {
-                // navigation to LoginPage
-                Navigator.push(context, MaterialPageRoute
-                (builder: (context) => const LoginPage()));
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Colors.black,
-              ),
-              child: Text('Next',
-              style: TextStyle(
-                color: Colors.white,
-              ) ,
-              ),
-
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    // Navigasi ke halaman DashboardPage
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => DashboardPage()),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xFF4C4DDC),
+                    fixedSize: Size(100, 24),
+                  ),
+                  child: Text(
+                    'Next',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -98,4 +107,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-

@@ -1,40 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:wisata_app/halaman/penginapan_screen.dart';
+import 'package:wisata_app/halaman/restoran_screen.dart';
+import 'package:wisata_app/halaman/wisata_screen.dart';
+import 'package:wisata_app/halaman/restoran_screen.dart';
+import 'package:wisata_app/widgets/home_bottom_bar.dart';
 
 class DashboardPage extends StatelessWidget {
   final List<String> catNames = [
-    "Penginapan",
-    'Hotel',
-    'Wisata',
-    'Tiket',
-    'Maps',
-    'Voucher',
+    'Restaurant',
+    'Tour',
   ];
 
   final List<Color> catColors = [
-    Color(0xFFFFCF2f),
-    Color(0xFF6FE08D),
-    Color(0xFF61BDFD),
-    Color(0xFFFC7F7F),
-    Color(0xFFD71313),
-    Color(0xFFCB84FB),
+    Color(0xFFFFD33C),
+    Color(0xFF9FBB73),
   ];
 
   List<IconData> catIcons = [
     Icons.home_work,
     Icons.hotel_outlined,
-    Icons.tour,
-    Icons.airplane_ticket_rounded,
-    Icons.map_outlined,
-    Icons.airplane_ticket,
   ];
 
   List imgList = [
-    'logoawal',
-    'logoawal',
-    'logoawal',
-    'logoawal',
+    'saungnikmat',
+    'satemaranggi',
+    'curugcikondang',
+    'curugcitambur',
   ];
+
+    List nameList = [
+    'Saung Nikmat',
+    'Sate Maranggi',
+    'Curug Cikondang',
+    'Curug Citambur',
+  ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -58,9 +57,7 @@ class DashboardPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      },
+                      onTap: () {},
                       child: Icon(
                         Icons.arrow_back,
                         size: 30,
@@ -78,7 +75,7 @@ class DashboardPage extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(left: 9, bottom: 30),
                   child: Text(
-                    "Hari ini Punya Rencana Liburan Ke Mana?",
+                    "Where do you have holiday plans today?",
                     style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.w600,
@@ -126,13 +123,17 @@ class DashboardPage extends StatelessWidget {
                     childAspectRatio: 1.1,
                   ),
                   itemBuilder: (context, index) {
-                    return GestureDetector(
+                   return GestureDetector(
                       onTap: () {
-                        print('${catNames[index]}');
-                        Navigator.push(context, MaterialPageRoute
-                        (builder: (context) => Penginapan()));
-
-                        // Lakukan aksi yang diinginkan saat kategori ditekan
+                        if (catNames[index] == 'Restaurant'){
+                          Navigator.push(
+                            context, MaterialPageRoute(builder: (context) => RestoranScreen()),
+                          );
+                        } else if (catNames[index] == 'Tour') {
+                          Navigator.push(
+                            context, MaterialPageRoute(builder: (context) => WisataScreen()),
+                            );
+                        }
                       },
                       child: Column(
                         children: [
@@ -175,14 +176,23 @@ class DashboardPage extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    Text(
-                      "See All",
-                      style: TextStyle(
-                        fontSize: 23,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFF674AEF),
-                      ),
+                    GestureDetector(
+                      onTap: () {
+                      Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => WisataScreen()),
+                     );
+                   },
+                   child: Text(
+                    'See All',
+                    style: TextStyle(
+                      fontSize: 23,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF674AEF),
                     ),
+                   ),
+                   
+                    )
                   ],
                 ),
                 SizedBox(height: 10),
@@ -193,7 +203,7 @@ class DashboardPage extends StatelessWidget {
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     childAspectRatio:
-                        (MediaQuery.of(context).size.height - 50 - 25) / (4 * 240),
+                    (MediaQuery.of(context).size.height - 50 - 25) / (4 * 140),
                     mainAxisSpacing: 15,
                     crossAxisSpacing: 10,
                   ),
@@ -211,14 +221,14 @@ class DashboardPage extends StatelessWidget {
                             Padding(
                               padding: EdgeInsets.all(10),
                               child: Image.asset(
-                                "asset/images/${imgList[index]}.png",
+                                "assets/images/${imgList[index]}.jpg",
                                 width: 100,
                                 height: 100,
                               ),
                             ),
                             SizedBox(height: 10),
                             Text(
-                              imgList[index],
+                              nameList[index],
                               style: TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.w600,
@@ -245,28 +255,7 @@ class DashboardPage extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        showUnselectedLabels: true,
-        iconSize: 32,
-        selectedItemColor: Color(0xFF878787),
-        selectedFontSize: 18,
-        unselectedItemColor: Color(0xFF878787),
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_month),
-            label: 'Kalender',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_sharp),
-            label: 'Wishlist',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_2),
-            label: 'Account',
-          )
-        ],
-      ),
+      bottomNavigationBar: HomeBottomBar(),
     );
   }
 }
