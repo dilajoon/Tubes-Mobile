@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:wisata_app/size_config.dart';
 
 class SocialMediaCard extends StatelessWidget {
   const SocialMediaCard({
@@ -17,9 +16,8 @@ class SocialMediaCard extends StatelessWidget {
     return GestureDetector(
       onTap: press as void Function()?,
       child: Container(
-        margin:
-            EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(50)),
-        padding: EdgeInsets.all(getProportionateScreenWidth(92)),
+        margin: EdgeInsets.symmetric(horizontal: 30),
+        padding: EdgeInsets.all(50),
         height: (30),
         width: (40),
         decoration: const BoxDecoration(

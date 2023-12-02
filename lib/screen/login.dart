@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:wisata_app/helper/keyboard.dart';
 import 'package:wisata_app/helper/session_manager.dart';
 import 'package:wisata_app/services/auth_services.dart';
-import 'package:wisata_app/widgets/custom_snackbar.dart';
 import 'package:wisata_app/widgets/social_media_card.dart';
 
 class LoginPage extends StatefulWidget {
@@ -53,37 +52,38 @@ class _LoginPageState extends State<LoginPage> {
     try {
       final user = await AuthService().login(email!, password!);
 
-      if (user.email.isNotEmpty) {
+      if (user != null && user.email.isNotEmpty) {
         setState(() {
           _error = '';
         });
 
-        // Simpan data pengguna ke SharedPreferences
         final prefs = await SessionManager.getInstance();
         await prefs.saveUserData(user.email);
 
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return const LoginSuccessScreen();
-        }));
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => LoginSuccessScreen(
+              text: 'Login',
+              press: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                  (route) => false,
+                );
+              },
+            ),
+          ),
+          (route) => false,
+        );
       } else {
         setState(() {
-          _error = 'Wrong Email or Password';
+          _error = 'Email atau Password Salah';
         });
       }
     } catch (e) {
       setState(() {
-        _error = 'Login Failed';
-      });
-    }
-
-    if (_error.isNotEmpty) {
-      CustomSnackbar.show(
-        scaffoldMessengerKey.currentState!,
-        _error,
-        SnackbarType.error,
-      );
-      setState(() {
-        _error = '';
+        _error = 'Login gagal';
       });
     }
   }
@@ -169,7 +169,7 @@ class _LoginPageState extends State<LoginPage> {
                 margin: EdgeInsets.symmetric(horizontal: 20),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: primaryButtonColor,
+                    backgroundColor: primaryButtonColor,
                   ),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
@@ -189,30 +189,30 @@ class _LoginPageState extends State<LoginPage> {
                       style: whiteTextStyle.copyWith(fontWeight: bold)),
                 ),
               ),
-              Container(
-                width: 150,
-                height: 0,
-                margin: EdgeInsets.symmetric(horizontal: 5, vertical: 25),
-                child: SingleChildScrollView(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SocialMediaCard(
-                        icon: "assets/icons/google-icon.svg",
-                        press: () {},
-                      ),
-                      SocialMediaCard(
-                        icon: "assets/icons/facebook-2.svg",
-                        press: () {},
-                      ),
-                      SocialMediaCard(
-                        icon: "assets/icons/twitter.svg",
-                        press: () {},
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              // Container(
+              //   width: 200,
+              //   height: 40,
+              //   margin: EdgeInsets.symmetric(horizontal: 5, vertical: 25),
+              //   child: SingleChildScrollView(
+              //     child: Row(
+              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //       children: [
+              //         SocialMediaCard(
+              //           icon: "assets/icons/google-icon.svg",
+              //           press: () {},
+              //         ),
+              //         SocialMediaCard(
+              //           icon: "assets/icons/facebook-2.svg",
+              //           press: () {},
+              //         ),
+              //         SocialMediaCard(
+              //           icon: "assets/icons/twitter.svg",
+              //           press: () {},
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -220,7 +220,6 @@ class _LoginPageState extends State<LoginPage> {
                       style: secondaryTextStyle.copyWith(fontSize: 12)),
                   TextButton(
                     onPressed: () {
-                      // Navigate to sign up
                       Navigator.push(
                           context,
                           MaterialPageRoute(

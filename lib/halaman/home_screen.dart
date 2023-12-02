@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wisata_app/screen/login.dart';
+import 'package:wisata_app/halaman/dashboard_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -20,10 +22,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _startPageViewAutoScroll() {
     Future.delayed(const Duration(seconds: 3), () {
-      //waktu
       _pageController.animateToPage(
         _currentPage + 1,
-        duration: const Duration(milliseconds: 300), //waktu
+        duration: const Duration(milliseconds: 300),
         curve: Curves.easeIn,
       );
       _startPageViewAutoScroll();
@@ -40,7 +41,6 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             SizedBox(
-              //bagian gambar
               height: 400,
               child: PageView(
                 controller: _pageController,
@@ -79,13 +79,22 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             SizedBox(height: 40),
             ElevatedButton(
-              onPressed: () {
-                // navigation to LoginPage
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const LoginPage()));
+              onPressed: () async {
+                bool isLoggedIn = await checkIsLoggedIn();
+                if (isLoggedIn) {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => DashboardPage()),
+                  );
+                } else {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                  );
+                }
               },
               style: ElevatedButton.styleFrom(
-                primary: Colors.black,
+                backgroundColor: Colors.black,
               ),
               child: Text(
                 'Next',
@@ -98,5 +107,11 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  Future<bool> checkIsLoggedIn() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+    return isLoggedIn;
   }
 }

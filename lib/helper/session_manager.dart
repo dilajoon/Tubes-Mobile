@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wisata_app/screen/login.dart';
-import 'package:wisata_app/halaman/home_screen.dart';
+import 'package:wisata_app/halaman/dashboard_screen.dart';
 
 class SessionManager {
   static SessionManager? _instance;
@@ -25,7 +25,7 @@ class SessionManager {
     if (isLogin) {
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => HomeScreen()),
+        MaterialPageRoute(builder: (context) => DashboardPage()),
         (route) => false,
       );
     }
