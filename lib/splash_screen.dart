@@ -16,18 +16,18 @@ class SplashScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(
-            'images/logoawal.jpg',
+            'images/logoawal.png',
             width: 470,
             height: 300,
           ),
           const Text(
-            'BIG HOLIDAY',
+            'Rencanakan Liburan Terbesar Anda',
             style: TextStyle(
-              fontSize: 30,
-              fontStyle: FontStyle.normal,
+              fontSize: 20,
+              fontStyle: FontStyle.italic,
               fontWeight: FontWeight.w100,
               fontFamily: 'Roboto',
-              color: Color.fromARGB(255, 28, 31, 37),
+              color: Colors.black,
             ),
           ),
         ],
@@ -35,7 +35,7 @@ class SplashScreen extends StatelessWidget {
       splashIconSize: 400,
       splashTransition: SplashTransition.fadeTransition,
       duration: 5000,
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: Color(0xFFEDEDED),
       nextScreen: const HomeScreen(), //Next to homescreen
     );
   }
