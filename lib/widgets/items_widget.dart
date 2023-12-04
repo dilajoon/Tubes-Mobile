@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wisata_app/halaman/item_wisata_screen.dart';
 
 class ItemsWidget extends StatelessWidget {
   List img = [
@@ -45,7 +46,12 @@ class ItemsWidget extends StatelessWidget {
             child: Column(
               children: [
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                    context, 
+                    MaterialPageRoute(
+                      builder: (context)=>SingleItemScreen(img[i])));
+                  },
                   child: Container(
                     margin: EdgeInsets.all(10),
                     child: Image.asset(

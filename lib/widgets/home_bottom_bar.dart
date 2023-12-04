@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wisata_app/halaman/calender_screen.dart';
+import 'package:wisata_app/halaman/profil_screen.dart';
 
 class HomeBottomBar extends StatelessWidget {
   @override
@@ -57,7 +58,12 @@ class HomeBottomBar extends StatelessWidget {
           ),
           _buildIconContainer(
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyApp()),
+                );
+              },
               icon: Icon(
                 Icons.person,
                 color: Color(0xFF4C4DDC),
