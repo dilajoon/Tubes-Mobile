@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:wisata_app/halaman/dashboard_screen.dart';
 import 'package:wisata_app/main.dart';
+import 'package:wisata_app/widgets/home_bottom_bar.dart';
 
 void main(){
   runApp(const MyApp());
@@ -30,6 +31,7 @@ class ProfilScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFCCC2C2),
       appBar: AppBar(
         title: const Text(''),
         leading: IconButton(
@@ -55,30 +57,31 @@ class ProfilScreen extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: ListTile(
                 title: const Text('Account'),
-                tileColor: Colors.white,
+                
               ),
             ),
             Align(
               alignment: Alignment.centerLeft,
               child: ListTile(
                 title: const Text('Location'),
-                tileColor: Colors.white,
+                
               ),
             ),
             Align(
               alignment: Alignment.centerLeft,
               child: ListTile(
                 title: const Text('About'),
-                tileColor: Colors.white,
+                
               ),
             ),
             Align(
               alignment: Alignment.centerLeft,
               child: ListTile(
                 title: const Text('Help Center'),
-                tileColor: Colors.white,
+                
               ),
             ),
+            SizedBox(height: 30,),
             ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
@@ -89,6 +92,7 @@ class ProfilScreen extends StatelessWidget {
           ],
         ),
       ),
+    bottomNavigationBar: HomeBottomBar(),
     );
   }
 }
