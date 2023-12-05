@@ -21,7 +21,7 @@ class SplashScreen extends StatelessWidget {
             height: 300,
           ),
           const Text(
-            'Rencanakan Liburan Terbesar Anda',
+            'Rencanakan Liburan Terbesar Anda Di BIG HOLIDAY',
             style: TextStyle(
               fontSize: 20,
               fontStyle: FontStyle.italic,
