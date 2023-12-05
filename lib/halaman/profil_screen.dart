@@ -31,14 +31,14 @@ class ProfilScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile'),
+        title: const Text(''),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => DashboardPage()),
-                );
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => DashboardPage()),
+            );
           },
         ),
       ),
@@ -51,21 +51,33 @@ class ProfilScreen extends StatelessWidget {
               backgroundImage: AssetImage('assetName'),
             ),
             const SizedBox(height: 15,),
-            ListTile(
-              title: const Text('Account'),
-              tileColor: Colors.white,
+            Align(
+              alignment: Alignment.centerLeft,
+              child: ListTile(
+                title: const Text('Account'),
+                tileColor: Colors.white,
+              ),
             ),
-            ListTile(
-              title: const Text('Location'),
-              tileColor: Colors.white,
+            Align(
+              alignment: Alignment.centerLeft,
+              child: ListTile(
+                title: const Text('Location'),
+                tileColor: Colors.white,
+              ),
             ),
-            ListTile(
-              title: const Text('About'),
-              tileColor: Colors.white,
+            Align(
+              alignment: Alignment.centerLeft,
+              child: ListTile(
+                title: const Text('About'),
+                tileColor: Colors.white,
+              ),
             ),
-            ListTile(
-              title: const Text('Help Center'),
-              tileColor: Colors.white,
+            Align(
+              alignment: Alignment.centerLeft,
+              child: ListTile(
+                title: const Text('Help Center'),
+                tileColor: Colors.white,
+              ),
             ),
             ElevatedButton(
               onPressed: () {},
@@ -80,3 +92,61 @@ class ProfilScreen extends StatelessWidget {
     );
   }
 }
+
+
+// class ProfilScreen extends StatelessWidget {
+//   const ProfilScreen({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text(''),
+//         leading: IconButton(
+//           icon: const Icon(Icons.arrow_back),
+//           onPressed: () {
+//                 Navigator.push(
+//                   context,
+//                   MaterialPageRoute(builder: (context) => DashboardPage()),
+//                 );
+//           },
+//         ),
+//       ),
+//       body: Padding(
+//         padding: const EdgeInsets.all(20),
+//         child: Column(
+//           children: [
+//             CircleAvatar(
+//               radius: 70,
+//               backgroundImage: AssetImage('assetName'),
+//             ),
+//             const SizedBox(height: 15,),
+//             ListTile(
+//               title: const Text('Account'),
+//               tileColor: Colors.white,
+//             ),
+//             ListTile(
+//               title: const Text('Location'),
+//               tileColor: Colors.white,
+//             ),
+//             ListTile(
+//               title: const Text('About'),
+//               tileColor: Colors.white,
+//             ),
+//             ListTile(
+//               title: const Text('Help Center'),
+//               tileColor: Colors.white,
+//             ),
+//             ElevatedButton(
+//               onPressed: () {},
+//               style: ElevatedButton.styleFrom(
+//                 padding: EdgeInsets.all(15),
+//               ),
+//               child: const Text('Sign Out'),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
