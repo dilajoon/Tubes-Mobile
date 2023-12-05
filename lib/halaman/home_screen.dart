@@ -19,11 +19,11 @@ class _HomeScreenState extends State<HomeScreen> {
     'images/koper.png',
     'images/maps.png',
   ];
-    final List<String> nms = [
-    'Pesan Tiket bisa lebih Mudah',
-    'Cari Tempat Wisata Favorit',
-    'Liburan Bersama',
-  ];
+  //   final List<String> nms = [
+  //   'Pesan Tiket bisa lebih Mudah',
+  //   'Cari Tempat Wisata Favorit',
+  //   'Liburan Bersama',
+  // ];
 
   @override
   void initState() {
@@ -90,13 +90,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 440,
                       ),
                       // SizedBox(height: 3),
-                      Text(
-                        nms[index].replaceAll('images/', '').replaceAll('.png', ''),
-                        style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.w300,
-                        ),
-                      ),
+                      // Text(
+                      //   nms[index].replaceAll('images/', '').replaceAll('.png', ''),
+                      //   style: TextStyle(
+                      //     fontSize: 25,
+                      //     fontWeight: FontWeight.w300,
+                      //   ),
+                      // ),
                     ],
                   );
                 },
