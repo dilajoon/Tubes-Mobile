@@ -10,7 +10,8 @@ class RestoranScreen extends StatefulWidget {
   State<RestoranScreen> createState() => _RestoranScreen();
 }
 
-class _RestoranScreen extends State<RestoranScreen> with SingleTickerProviderStateMixin {
+class _RestoranScreen extends State<RestoranScreen>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -25,28 +26,28 @@ class _RestoranScreen extends State<RestoranScreen> with SingleTickerProviderSta
     super.dispose();
   }
 
-    @override
-    Widget build(BuildContext context){
-      return Scaffold(
-        backgroundColor: Color(0xFFEDEDED),
-        body: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.only(top: 15),
-            child: ListView(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InkWell(
-                        onTap: (){
-                           Navigator.push(
-                            context,
-                            MaterialPageRoute(
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color(0xFFEDEDED),
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.only(top: 15),
+          child: ListView(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
                             builder: (context) => DashboardPage(),
                           ),
-                       );
+                        );
                       },
                       child: Container(
                         padding: EdgeInsets.all(8),
@@ -61,89 +62,87 @@ class _RestoranScreen extends State<RestoranScreen> with SingleTickerProviderSta
                           size: 29,
                         ),
                       ),
+                    ),
+                    InkWell(
+                      onTap: () {},
+                      child: Icon(
+                        Icons.notifications,
+                        color: Colors.black,
+                        size: 35,
                       ),
-                      InkWell(
-                        onTap: (){},
-                        child: Icon(
-                          Icons.notifications,
-                          color: Colors.black,
-                          size: 35,
-                        ),
-                      ),
-                    ],
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 30),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Text(
+                    "Choose the restaurant you want",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w500),
                   ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                width: MediaQuery.of(context).size.width,
+                height: 60,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: "Search here ...",
+                      hintStyle: TextStyle(
+                        color: Colors.black,
+                      ),
+                      prefixIcon: Icon(
+                        Icons.search,
+                        size: 30,
+                        color: Colors.black.withOpacity(0.5),
+                      )),
+                ),
+              ),
+              TabBar(
+                controller: _tabController,
+                labelColor: Color(0xFF4C4DDC),
+                unselectedLabelColor: Colors.white.withOpacity(0.5),
+                isScrollable: true,
+                indicator: UnderlineTabIndicator(
+                  borderSide: BorderSide(
+                    width: 3,
+                    color: Color(0xFF4C4DDC),
                   ),
-                  SizedBox(height: 30),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      child: Text(
-                        "Choose the restaurant you want",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 30,
-                          fontWeight: FontWeight.w500
-                        ),
-                        ),
-                    ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                      width: MediaQuery.of(context).size.width,
-                      height: 60,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "Search here ...",
-                          hintStyle: TextStyle(
-                            color: Colors.black,
-                          ),
-                          prefixIcon: Icon(
-                            Icons.search,
-                            size: 30,
-                            color: Colors.black.withOpacity(0.5),
-                          )
-                        ),
-                      ),
-                    ),
-                    TabBar(
-                      controller: _tabController,
-                      labelColor: Color(0xFF4C4DDC),
-                      unselectedLabelColor: Colors.white.withOpacity(0.5),
-                      isScrollable: true,
-                      indicator: UnderlineTabIndicator(
-                        borderSide: BorderSide(
-                          width: 3,
-                          color: Color(0xFF4C4DDC),
-                        ),
-                        insets: EdgeInsets.symmetric(horizontal: 16),
-                      ),
-                      labelStyle: 
-                      TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                      labelPadding: EdgeInsets.symmetric(horizontal: 20),
-                      tabs: [
-                      Tab(text: "Nearby your location"),
-                      Tab(text: "Popular Destination"),
-                    ],
-                    ),
-                    SizedBox(height: 10),
-                    Center(
-                      child: [
-                        KulinerWidgets(),
-                        KulinerWidgets(),
-                      ][_tabController.index],
-                    ),
-              ],
-            ),
-            ),
-            ),
-            bottomNavigationBar: HomeBottomBar(),
-      );
-    }
+                  insets: EdgeInsets.symmetric(horizontal: 16),
+                ),
+                labelStyle:
+                    TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                labelPadding: EdgeInsets.symmetric(horizontal: 20),
+                tabs: [
+                  Tab(text: "Nearby your location"),
+                  Tab(text: "Popular Destination"),
+                ],
+              ),
+              SizedBox(height: 10),
+              Center(
+                child: [
+                  KulinerWidgets(),
+                  KulinerWidgets(),
+                ][_tabController.index],
+              ),
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: HomeBottomBar(),
+    );
   }
+}

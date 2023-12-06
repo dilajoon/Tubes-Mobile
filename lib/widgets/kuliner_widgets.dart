@@ -1,6 +1,13 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:wisata_app/halaman/Favourits_screen.dart';
+import 'package:wisata_app/halaman/item_restoran_screen.dart';
 
-class KulinerWidgets extends StatelessWidget{
+class KulinerWidgets extends StatefulWidget {
+  @override
+  _KulinerWidgetsState createState() => _KulinerWidgetsState();
+}
+
+class _KulinerWidgetsState extends State<KulinerWidgets> {
   List img = [
     'saungnikmat',
     'satemaranggi',
@@ -9,10 +16,9 @@ class KulinerWidgets extends StatelessWidget{
     'ikanbakar',
     'alamsunda',
     'pempek',
-    
   ];
 
-    List Names = [
+  List names = [
     'Saung Nikmat',
     'Sate Maranggi',
     'Sabore Kitchen',
@@ -22,10 +28,35 @@ class KulinerWidgets extends StatelessWidget{
     'Warung Pempek 168'
   ];
 
-  
+  List lokasi = [
+    'Jl. Dr. Muwardi No.155, Bojongherang, Kec. Cianjur,',
+    'Pacet, Cipendawa, Kecamatan Pacet, Kabupaten Cianjur, Jawa Barat.',
+    'Jl. K.H Hasyim Ashari No. 44-46, Warujajar, Solokpandan, Kec. Cianjur,jawa barat',
+    'JL.By Pass Dr Mawardi,Cianjur Bojongherang Jawa Barat',
+    'Jalan Raya Cianjur-Cipanas Km 7, Puncak, Jawa Barat, Cianjur Indonesia',
+    'Jalan Raya Kota Bunga No.61,Plasari,Cipanas,Jawa Barat',
+    'Jl. Yulius Usman no. 30, Cianjur 43213 Indonesia',
+  ];
+
+  List deskripsion = [
+    'restoran Saung nikmat ini terkenal dengan hidangan khas sunda yang menggugah selera dan suasana asri dengan konsep saung dan kolam ikan yang menambah kesan alami.',
+    'Sate Maranggi Sate Maranggi adalah salah satu jenis kuliner khas Kabupaten Purwakarta yang biasanya terdiri dari potongan daging berbentuk dadu berukuran sekitar 1 cm.',
+    'Sabore Kitchen menyajikan berbagai menu dengan rasa yang bikin meleleh di lidah dan harga yang cukup terjangkau. Cafe Sabore Kitchen selain mempunyai rasa masakan yang khas, juga menyediakan tempat yang tentunya sangat cocok untuk nongkrong bersama pasangan dan keluarga.',
+    'Rumah makan Padang yang diberi nama KAPAU adalah usaha rumah makan keluarga yang bergerak dalam bisnis jasa, Usaha ini dinamakan KAPAU dikarenakan pemilik usaha ini berasal dari Negeri KApau yang berada di Padang.',
+    'Ikan bakar adalah hidangan khas Indonesia yang terkenal karena cita rasanya yang lezat dan unik. Proses memasaknya melibatkan memanggang ikan dengan bumbu-bumbu khas Indonesia di atas panggangan atau arang, memberikan rasa yang khas dan aroma yang menggugah selera.',
+    'Alam Sunda merupakan hidangan-hidangan khas Sunda yang lezat dan kaya akan cita rasa tradisional.'
+  ];
+
+  List<bool> isFavoriteList = List.generate(7, (index) => false);
+
+  void _toggleFavorite(int index) {
+    setState(() {
+      isFavoriteList[index] = !isFavoriteList[index];
+    });
+  }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return GridView.count(
       physics: NeverScrollableScrollPhysics(),
       crossAxisCount: 2,
@@ -33,106 +64,114 @@ class KulinerWidgets extends StatelessWidget{
       childAspectRatio: (150 / 195),
       children: [
         for (int i = 0; i < img.length; i++)
-        Container(
-          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-          margin: EdgeInsets.symmetric(vertical: 8, horizontal: 13),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.5),
-                spreadRadius: 1,
-                blurRadius: 8,
-              ),
-            ],
-          ),
-          child: Column(
-            children: [
-              InkWell(
-                onTap: (){
-
-                },
-                child: Container(
-                margin: EdgeInsets.all(10),
-                child: Image.asset(
-                  "assets/images/${img[i]}.jpg",
-                  width: 140,
-                  height: 140,
-                  fit: BoxFit.contain,
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+            margin: EdgeInsets.symmetric(vertical: 8, horizontal: 13),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.5),
+                  spreadRadius: 1,
+                  blurRadius: 8,
                 ),
-              ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(bottom: 8), 
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        Names[i],
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
+              ],
+            ),
+            child: Column(
+              children: [
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => restoranItemScreen(
+                                img[i], names[i], lokasi[i], deskripsion[i])));
+                  },
+                  child: Container(
+                    margin: EdgeInsets.all(10),
+                    child: Image.asset(
+                      "assets/images/${img[i]}.jpg",
+                      width: 140,
+                      height: 140,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 8),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          names[i],
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
                         ),
+                        SizedBox(height: 10),
+                        Text(
+                          "Cianjur",
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  child: Row(
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                            size: 20,
+                          ),
+                          SizedBox(width: 4),
+                          Text(
+                            "5.0",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ],
                       ),
-                      SizedBox(height: 10),
-                      Text(
-                        "Cianjur",
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.black,
+                      SizedBox(width: 120),
+                      InkWell(
+                        onTap: () {
+                          _toggleFavorite(i);
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Icon(
+                            Icons.favorite,
+                            size: 20,
+                            color: isFavoriteList[i] ? Colors.red : Colors.grey,
+                          ),
                         ),
                       ),
                     ],
                   ),
-                ),
-                ),
-                Padding(
-                padding: EdgeInsets.symmetric(vertical: 10),
-                child: Row(
-                children: [
-                Row(
-                children: [
-                Icon(
-                  Icons.star,
-                  color: Colors.amber,
-                  size: 20,
-                ),
-                SizedBox(width: 4), // Spacer antara ikon dan teks
-                  Text(
-                    "5.0",
-                  style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black,
-                ),
-              ),
-            ],
-          ),
-            SizedBox(width: 120), // Spacer antara ikon dan ikon love
-          Container(
-            padding: EdgeInsets.all(5),
-            decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Icon(
-          Icons.favorite,
-          size: 20,
-          color: Colors.red,
-        ),
-      ),
-    ],
-  ),
-)
-
-            ],
-          ),
-        )
+                )
+              ],
+            ),
+          )
       ],
-      );
+    );
   }
 }

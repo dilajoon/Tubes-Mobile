@@ -20,7 +20,7 @@ class ItemsWidget extends StatelessWidget {
     'Gunung gede'
   ];
 
-    List lokasi = [
+  List lokasi = [
     'Campaka',
     'Pasir Kuda',
     'Cidaun',
@@ -66,9 +66,10 @@ class ItemsWidget extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     Navigator.push(
-                    context, 
-                    MaterialPageRoute(
-                      builder: (context)=>SingleItemScreen(img[i], Names[i], lokasi[i], deskripsion[i])));
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SingleItemScreen(
+                                img[i], Names[i], lokasi[i], deskripsion[i])));
                   },
                   child: Container(
                     margin: EdgeInsets.all(10),
