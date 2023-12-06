@@ -6,7 +6,6 @@ class AuthService {
   final List<UserModel> _users = [];
 
   AuthService() {
-    // Initialize _users list with some sample data
     _users.add(UserModel(
       email: 'user1@gmail.com',
       password: 'password',
@@ -24,7 +23,7 @@ class AuthService {
     );
 
     if (preRegisteredUser != null) {
-      return preRegisteredUser; // Pre-registered user found
+      return preRegisteredUser;
     }
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -40,9 +39,9 @@ class AuthService {
         name: storedName ?? '',
         nohp: storedNohp ?? '',
       );
-      return newUser; // User found in added users during registration
+      return newUser;
     } else {
-      return null; // User not found or credentials don't match
+      return null;
     }
  } catch (e) {
     print('Login failed: $e');
@@ -60,11 +59,11 @@ class AuthService {
   ) async {
     try {
       if (password != confirmPassword) {
-        return {'success': false, 'message': 'Passwords do not match'};
+        return {'success': false, 'message': 'Passwords tidak sama'};
       }
 
       if (_users.any((user) => user.email == email)) {
-        return {'success': false, 'message': 'Email is already registered'};
+        return {'success': false, 'message': 'Email sudah digunakan'};
       }
 
       UserModel newUser =
@@ -78,9 +77,9 @@ class AuthService {
       prefs.setString('name', name);
       prefs.setString('nohp', nohp);
 
-      return {'success': true, 'message': 'Registration successful'};
+      return {'success': true, 'message': 'Register berhasil'};
     } catch (e) {
-      return {'success': false, 'message': 'Registration failed: $e'};
+      return {'success': false, 'message': 'Register gagal: $e'};
     }
   }
 }
