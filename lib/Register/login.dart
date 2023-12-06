@@ -4,6 +4,9 @@ import 'package:wisata_app/constans.dart';
 import 'package:flutter/material.dart';
 import 'package:wisata_app/helper/keyboard.dart';
 import 'package:wisata_app/helper/session_manager.dart';
+import 'package:wisata_app/services/auth_services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+const String googleIconPath = 'icons/google-icon.svg';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -12,18 +15,80 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-// Future<void> checkIsLogin(BuildContext context) async {
-//   await SessionManager().isLogin(context);
-// }
+Future<void> checkIsLogin(BuildContext context) async {
+  await SessionManager().isLogin(context);
+}
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController passwordController = TextEditingController();
-  final email = TextEditingController();
-  final password = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  String? email;
+  String? password;
+  bool? remember = false;
+  String _error = '';
+  final List<String?> errors = [];
+  final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
-  bool isVisible = false;
-  bool isLoginTrue = false;
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>(); // Define a form key 
+  void initState() {
+    super.initState();
+    checkIsLogin(context);
+  }
+
+  void addError({String? error}) {
+    if (!errors.contains(error)) {
+      setState(() {
+        errors.add(error);
+      });
+    }
+  }
+
+  void removeError({String? error}) {
+    if (errors.contains(error)) {
+      setState(() {
+        errors.remove(error);
+      });
+    }
+  }
+
+  Future<void> _login() async {
+    try {
+      final user = await AuthService().login(email!, password!);
+
+      if (user != null && user.email.isNotEmpty) {
+        setState(() {
+          _error = '';
+        });
+
+        final prefs = await SessionManager.getInstance();
+        await prefs.saveUserData(user.email);
+
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => LoginSuccessScreen(
+              text: 'Login',
+              press: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                  (route) => false,
+                );
+              },
+            ),
+          ),
+          (route) => false,
+        );
+      } else {
+        setState(() {
+          _error = 'Email atau Password Salah';
+        });
+      }
+    } catch (e) {
+      setState(() {
+        _error = 'Login gagal';
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,75 +103,42 @@ class _LoginPageState extends State<LoginPage> {
                 "Welcome",
                 style: textTextStyle.copyWith(fontSize: 30, fontWeight: bold),
               ),
-              SizedBox(height: 11),
+              SizedBox(height: 21),
               Text(
-                "Rencanakan liburan terbesarmu di Big Holidey, ada banyak tempat wisata dan kamar hotel yang tersedia",
-                style: secondaryTextStyle.copyWith(fontSize: 12),
+                "Rencanakan liburan terbesarmu di Big Holidey, ada banyak tempat wisata alam dan kuliner yang beragam",
+                style: secondaryTextStyle.copyWith(fontSize: 18),
                 textAlign: TextAlign.center,
               ),
               SizedBox(
-                height: 64,
+                height: 44,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    "Email",
-                    style: textTextStyle.copyWith(
-                      fontSize: 12,
-                      fontWeight: bold,
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: whiteColor,
-                    ),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Email',
-                        hintStyle:
-                            textTextStyle.copyWith(fontSize: 12, color: textColor.withOpacity(0.6)),
-                        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 17),
+              Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Email",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
-                  SizedBox(height: 15),
-                  Text(
-                    "Password",
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 10),
-                  Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
+                    SizedBox(height: 10),
+                    buildEmailFormField(),
+                    SizedBox(height: 15),
+                    Text(
+                      "Password",
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                     ),
-                    child: TextFormField(
-                      controller: passwordController,
-                      obscureText: !isVisible,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 17),
-                        suffixIcon: IconButton(
-                          icon: Icon(isVisible ? Icons.visibility : Icons.visibility_off),
-                          onPressed: () {
-                            setState(() {
-                              isVisible = !isVisible;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                    SizedBox(height: 10),
+                    buildPasswordFormField(),
+                    SizedBox(height: 15),
+                  ],
+                ),
               ),
-              SizedBox(height: 20,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -121,64 +153,102 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       SizedBox(width: 15),
-                      Text("Remember me", style: greyTextStyle.copyWith(fontSize: 12)),
+                      Text("Remember me",
+                          style: greyTextStyle.copyWith(fontSize: 12)),
                     ],
                   ),
-                  Text("Forget Password ?", style: textTextStyle.copyWith(fontSize: 12)),
+                  Text("Forget Password ?",
+                      style: textTextStyle.copyWith(fontSize: 12)),
                 ],
               ),
-              SizedBox(height: 32,),
+              SizedBox(
+                height: 22,
+              ),
               Container(
                 width: double.infinity,
                 height: 50,
                 margin: EdgeInsets.symmetric(horizontal: 20),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: primaryButtonColor,
+                    backgroundColor: primaryButtonColor,
                   ),
                   onPressed: () {
-                if (formKey.currentState!.validate()) {
-                  formKey.currentState!.save();
-                  KeyboardUtil.hideKeyboard(context);
-                  LoginSuccessScreen();
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text("Invalid input. Please check your entries."),
-                    ),
-                  );
-                }
-              },
-              child: Text("LOGIN", style: whiteTextStyle.copyWith(fontWeight: bold)),
+                    if (_formKey.currentState!.validate()) {
+                      _formKey.currentState!.save();
+                      KeyboardUtil.hideKeyboard(context);
+                      _login();
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content:
+                              Text("Email atau Password Salah"),
+                        ),
+                      );
+                    }
+                  },
+                  child: Text("LOGIN",
+                      style: whiteTextStyle.copyWith(fontWeight: bold)),
                 ),
               ),
-              Container(
-                width: double.infinity,
-                height: 50,
-                margin: EdgeInsets.symmetric(horizontal: 20, vertical: 19),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: buttonColor,
-                  ),
-                  onPressed: () {},
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.network("https://www.flaticon.com/free-icon/google_2702602", height: 20),
-                      SizedBox(width: 12),
-                      Text("Sign in with Google", style: textTextStyle.copyWith(fontWeight: bold)),
-                    ],
-                  ),
-                ),
-              ),
+              // Container(
+              //   width: 200,
+              //   height: 40,
+              //   margin: EdgeInsets.symmetric(horizontal: 5, vertical: 25),
+              //   child: SingleChildScrollView(
+              //     child: Row(
+              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //       children: [
+              //         SocialMediaCard(
+              //           icon: "assets/icons/google-icon.svg",
+              //           press: () {},
+              //         ),
+              //         SocialMediaCard(
+              //           icon: "assets/icons/facebook-2.svg",
+              //           press: () {},
+              //         ),
+              //         SocialMediaCard(
+              //           icon: "assets/icons/twitter.svg",
+              //           press: () {},
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
+               Container(
+      width: double.infinity,
+      height: 50,
+      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 19),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: buttonColor,
+        ),
+        onPressed: () {},
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Use SvgPicture.asset to load SVG images
+            SvgPicture.asset(
+              googleIconPath,
+              width: 24, // Set the width of the SVG image
+              height: 24, // Set the height of the SVG image
+            ),
+            SizedBox(width: 10),
+            Text("Sign in with Google", style: textTextStyle.copyWith(fontWeight: FontWeight.bold)),
+          ],
+        ),
+      ),
+    ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("You don't have an account yet?", style: secondaryTextStyle.copyWith(fontSize: 12)),
+                  Text("You don't have an account yet?",
+                      style: secondaryTextStyle.copyWith(fontSize: 12)),
                   TextButton(
                     onPressed: () {
-                      // Navigate to sign up
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUp()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SignUp()));
                     },
                     child: const Text("Sign Up"),
                   ),
@@ -187,6 +257,64 @@ class _LoginPageState extends State<LoginPage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  TextFormField buildPasswordFormField() {
+    return TextFormField(
+      obscureText: true,
+      onSaved: (newValue) => password = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kPassNullError);
+        } else if (value.length >= 8) {
+          removeError(error: kShortPassError);
+        }
+        return;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          addError(error: kPassNullError);
+          return "";
+        } else if (value.length < 8) {
+          addError(error: kShortPassError);
+          return "";
+        }
+        return null;
+      },
+      decoration: const InputDecoration(
+        hintText: "Enter your password",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+      ),
+    );
+  }
+
+  TextFormField buildEmailFormField() {
+    return TextFormField(
+      keyboardType: TextInputType.emailAddress,
+      onSaved: (newValue) => email = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kEmailNullError);
+        } else if (emailValidatorRegExp.hasMatch(value)) {
+          removeError(error: kInvalidEmailError);
+        }
+        return;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          addError(error: kEmailNullError);
+          return "";
+        } else if (!emailValidatorRegExp.hasMatch(value)) {
+          addError(error: kInvalidEmailError);
+          return "";
+        }
+        return null;
+      },
+      decoration: const InputDecoration(
+        hintText: "Enter your email",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
     );
   }

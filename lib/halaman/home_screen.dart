@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:wisata_app/halaman/dashboard_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wisata_app/Register/login.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -107,33 +109,41 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                ElevatedButton(
-                  onPressed: () {
-                    // Navigasi ke halaman DashboardPage
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => DashboardPage()),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: Color(0xFF4C4DDC),
-                    fixedSize: Size(100, 24),
-                  ),
-                  child: Text(
-                    'Next',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
+                 ElevatedButton(
+              onPressed: () async {
+                bool isLoggedIn = await checkIsLoggedIn();
+                if (isLoggedIn) {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => DashboardPage()),
+                  );
+                } else {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                  );
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.black,
+              ),
+              child: Text(
+                'Next',
+                style: TextStyle(
+                  color: Colors.white,
                 ),
+              ),
+            ),
               ],
             ),
           ],
         ),
       ),
     );
+  }
+  Future<bool> checkIsLoggedIn() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+    return isLoggedIn;
   }
 }
