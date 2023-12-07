@@ -109,31 +109,33 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                 ElevatedButton(
-              onPressed: () async {
-                bool isLoggedIn = await checkIsLoggedIn();
-                if (isLoggedIn) {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => DashboardPage()),
-                  );
-                } else {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const LoginPage()),
-                  );
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black,
-              ),
-              child: Text(
-                'Next',
-                style: TextStyle(
-                  color: Colors.white,
+                ElevatedButton(
+                  onPressed: () async {
+                    bool isLoggedIn = await checkIsLoggedIn();
+                    if (isLoggedIn) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DashboardPage()),
+                      );
+                    } else {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginPage()),
+                      );
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFF4C4DDC),
+                  ),
+                  child: Text(
+                    'Next',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
-              ),
-            ),
               ],
             ),
           ],
@@ -141,6 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
   Future<bool> checkIsLoggedIn() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;

@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:wisata_app/halaman/item_wisata_screen.dart';
 
-class ItemsWidget extends StatelessWidget {
+class ItemsWidget extends StatefulWidget {
+  @override
+  _ItemWidgetState createState() => _ItemWidgetState();
+}
+
+class _ItemWidgetState extends State<ItemsWidget> {
   List img = [
     'curugcikondang',
     'curugcitambur',
@@ -37,6 +42,14 @@ class ItemsWidget extends StatelessWidget {
     'Taman Bunga Nusantara merupakan taman display bunga pertama di Indonesia. Taman ini dilengkapi dengan berbagai koleksi tanaman berbunga yang terkenal dan unik dari seluruh dunia. Dengan ratusan varietas tanaman berbunga di taman, Taman Bunga Nusantara benar-benar menjadi tempat dimana bunga-bunga dari seluruh dunia tumbuh.',
     'Gunung Gede merupakan sebuah gunung berapi kerucut yang berada di bagian barat Pulau Jawa, Indonesia. Gunung Gede berada dalam ruang lingkup Taman Nasional Gede Pangrango, yang merupakan salah satu dari lima taman nasional yang pertama kali diumumkan di Indonesia pada tahun 1980'
   ];
+
+  List<bool> isFavoriteList = List.generate(7, (index) => false);
+
+  void _toggleFavorite(int index) {
+    setState(() {
+      isFavoriteList[index] = !isFavoriteList[index];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +126,6 @@ class ItemsWidget extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 10),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Row(
                         children: [
@@ -133,17 +145,22 @@ class ItemsWidget extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(width: 40),
-                      Container(
-                        padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Icon(
-                          Icons.favorite,
-                          size: 20,
-                          color: Colors.red,
+                      SizedBox(width: 120),
+                      InkWell(
+                        onTap: () {
+                          _toggleFavorite(i);
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Icon(
+                            Icons.favorite,
+                            size: 20,
+                            color: isFavoriteList[i] ? Colors.red : Colors.grey,
+                          ),
                         ),
                       ),
                     ],
