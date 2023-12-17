@@ -112,30 +112,40 @@ class _WisataScreenState extends State<WisataScreen> with SingleTickerProviderSt
                   ),
                 ),
               ),
-              TabBar(
-                controller: _tabController,
-                labelColor: Color(0xFF4C4DDC),
-                unselectedLabelColor: Colors.white.withOpacity(0.5),
-                isScrollable: true,
-                indicator: UnderlineTabIndicator(
-                  borderSide: BorderSide(
-                    width: 3,
-                    color: Color(0xFF4C4DDC),
-                  ),
-                  insets: EdgeInsets.symmetric(horizontal: 16),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      "Nearby your location",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                    //   Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => KulinerCard()),
+                    //  );
+                   },
+                   child: Text(
+                    'See All',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF674AEF),
+                    ),
+                   ),
+                   
+                    )
+                  ],
                 ),
-                labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                labelPadding: EdgeInsets.symmetric(horizontal: 20),
-                tabs: [
-                  Tab(text: "Nearby your location"),
-                  Tab(text: "Popular Destination"),
-                ],
-              ),
               SizedBox(height: 10),
               Center(
                 child: [
                   ItemsWidget(),
-                  ItemsWidget(),
+                  //ItemsWidget(),
                 ][_tabController.index],
               ),
             ],

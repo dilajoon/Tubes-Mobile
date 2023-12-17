@@ -5,7 +5,7 @@ import 'package:wisata_app/widgets/kuliner_widgets.dart';
 
 class RestoranScreen extends StatefulWidget {
   const RestoranScreen({Key? key}) : super(key: key);
-
+  
   @override
   State<RestoranScreen> createState() => _RestoranScreen();
 }
@@ -89,7 +89,7 @@ class _RestoranScreen extends State<RestoranScreen>
                 ),
               ),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                margin: EdgeInsets.symmetric(horizontal: 25, vertical: 40),
                 width: MediaQuery.of(context).size.width,
                 height: 60,
                 alignment: Alignment.center,
@@ -111,31 +111,60 @@ class _RestoranScreen extends State<RestoranScreen>
                       )),
                 ),
               ),
-              TabBar(
-                controller: _tabController,
-                labelColor: Color(0xFF4C4DDC),
-                unselectedLabelColor: Colors.white.withOpacity(0.5),
-                isScrollable: true,
-                indicator: UnderlineTabIndicator(
-                  borderSide: BorderSide(
-                    width: 3,
-                    color: Color(0xFF4C4DDC),
-                  ),
-                  insets: EdgeInsets.symmetric(horizontal: 16),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      "Nearby your location",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                    //   Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => KulinerCard()),
+                    //  );
+                   },
+                   child: Text(
+                    'See All',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF674AEF),
+                    ),
+                   ),
+                   
+                    )
+                  ],
                 ),
-                labelStyle:
-                    TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                labelPadding: EdgeInsets.symmetric(horizontal: 20),
-                tabs: [
-                  Tab(text: "Nearby your location"),
-                  Tab(text: "Popular Destination"),
-                ],
-              ),
+              // TabBar(
+              //   controller: _tabController,
+              //   labelColor: Color(0xFF4C4DDC),
+              //   unselectedLabelColor: Colors.white.withOpacity(0.5),
+              //   isScrollable: true,
+              //   indicator: UnderlineTabIndicator(
+              //     borderSide: BorderSide(
+              //       width: 3,
+              //       color: Color(0xFF4C4DDC),
+              //     ),
+              //     insets: EdgeInsets.symmetric(horizontal: 16),
+              //   ),
+              //   labelStyle:
+              //       TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+              //   labelPadding: EdgeInsets.symmetric(horizontal: 20),
+              //   tabs: [
+              //     Tab(text: "Nearby your location"),
+              //     // Tab(text: "Popular Destination"),
+              //   ],
+              // ),
               SizedBox(height: 10),
               Center(
                 child: [
                   KulinerWidgets(),
-                  KulinerWidgets(),
+                  // KulinerWidgetsDua(),
                 ][_tabController.index],
               ),
             ],

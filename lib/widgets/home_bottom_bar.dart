@@ -89,3 +89,109 @@ class HomeBottomBar extends StatelessWidget {
     );
   }
 }
+
+
+// import 'package:flutter/material.dart';
+// import 'package:wisata_app/halaman/calender_screen.dart';
+// import 'package:wisata_app/halaman/dashboard_screen.dart';
+// import 'package:wisata_app/halaman/profil_screen.dart';
+// import 'package:google_nav_bar/google_nav_bar.dart';
+
+// class HomeBottomBar extends StatefulWidget {
+//   @override
+//   _HomeBottomBarState createState() => _HomeBottomBarState();
+// }
+
+// class _HomeBottomBarState extends State<HomeBottomBar> {
+//   int _selectedIndex = 0;
+
+//   final List<Widget> _screens = [
+//     DashboardPage(),
+//     ProfilScreen(),
+//     CalenderBottom(),
+//     // DashboardScreen(),
+//     // CalenderScreen(),
+//     // Tambahkan widget layar lain di sini jika diperlukan:
+//     // FavoriteScreen(),
+//     // UserScreen(),
+//     // ProfileScreen(),
+//   ];
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: _screens[_selectedIndex],
+//       bottomNavigationBar: GNav(
+//         backgroundColor: Color(0xFF878787),
+//         color: Color(0xFF4C4DDC),
+//         activeColor: Color(0xFF4C4DDC),
+//         tabBackgroundColor: Colors.white,
+//         gap: 8,
+//         selectedIndex: _selectedIndex,
+//         onTabChange: (index) {
+//           setState(() {
+//             _selectedIndex = index;
+//           });
+//         },
+//         tabs: [
+//           GButton(
+//             icon: Icons.home,
+//             text: 'Home',
+//             onPressed: () {
+//               _onItemTapped(0, context);
+//             },
+//           ),
+//           GButton(
+//             icon: Icons.calendar_today,
+//             text: 'Calendar',
+//             onPressed: () {
+//               _onItemTapped(1, context);
+//             },
+//           ),
+//           GButton(
+//             icon: Icons.favorite, 
+//             text: 'Favorite', 
+//             onPressed: () { _onItemTapped(2, context); }),
+//           GButton(
+//             icon: Icons.verified_user, 
+//             text: 'User', 
+//             onPressed: () { _onItemTapped(3, context); }),
+//           GButton(
+//             icon: Icons.person,
+//             text: 'Profile',
+//             onPressed: () {
+//               _onItemTapped(2, context);
+//             },
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+
+//   void _onItemTapped(int index, BuildContext context) {
+//     setState(() {
+//       _selectedIndex = index;
+//     });
+
+//     switch (index) {
+//       case 0:
+//         Navigator.push(
+//           context,
+//           MaterialPageRoute(builder: (context) => DashboardPage()),
+//         );
+//         break;
+//       case 1:
+//         Navigator.push(
+//           context,
+//           MaterialPageRoute(builder: (context) => CalenderBottom()),
+//         );
+//         break;
+//       case 2:
+//         Navigator.push(
+//           context,
+//           MaterialPageRoute(builder: (context) => ProfilScreen()),
+//         );
+//         break;
+//     }
+//   }
+// }
