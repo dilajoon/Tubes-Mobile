@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wisata_app/halaman/dashboard_screen.dart';
+import 'package:wisata_app/widgets/Destination_widget.dart';
 import 'package:wisata_app/widgets/home_bottom_bar.dart';
 import 'package:wisata_app/widgets/items_widget.dart';
 
@@ -145,6 +146,43 @@ class _WisataScreenState extends State<WisataScreen> with SingleTickerProviderSt
               Center(
                 child: [
                   ItemsWidget(),
+                  //ItemsWidget(),
+                ][_tabController.index],
+              ),
+
+                            Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      "Popular Destination",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                    //   Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => KulinerCard()),
+                    //  );
+                   },
+                   child: Text(
+                    'See All',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF674AEF),
+                    ),
+                   ),
+                   
+                    )
+                  ],
+                ),
+              SizedBox(height: 10),
+              Center(
+                child: [
+                  DestinationWidget(),
                   //ItemsWidget(),
                 ][_tabController.index],
               ),

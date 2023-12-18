@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wisata_app/halaman/dashboard_screen.dart';
+import 'package:wisata_app/widgets/Destination_resto_widget.dart';
 import 'package:wisata_app/widgets/home_bottom_bar.dart';
 import 'package:wisata_app/widgets/kuliner_widgets.dart';
 
@@ -123,10 +124,6 @@ class _RestoranScreen extends State<RestoranScreen>
                     ),
                     GestureDetector(
                       onTap: () {
-                    //   Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(builder: (context) => KulinerCard()),
-                    //  );
                    },
                    child: Text(
                     'See All',
@@ -140,31 +137,41 @@ class _RestoranScreen extends State<RestoranScreen>
                     )
                   ],
                 ),
-              // TabBar(
-              //   controller: _tabController,
-              //   labelColor: Color(0xFF4C4DDC),
-              //   unselectedLabelColor: Colors.white.withOpacity(0.5),
-              //   isScrollable: true,
-              //   indicator: UnderlineTabIndicator(
-              //     borderSide: BorderSide(
-              //       width: 3,
-              //       color: Color(0xFF4C4DDC),
-              //     ),
-              //     insets: EdgeInsets.symmetric(horizontal: 16),
-              //   ),
-              //   labelStyle:
-              //       TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-              //   labelPadding: EdgeInsets.symmetric(horizontal: 20),
-              //   tabs: [
-              //     Tab(text: "Nearby your location"),
-              //     // Tab(text: "Popular Destination"),
-              //   ],
-              // ),
               SizedBox(height: 10),
               Center(
                 child: [
                   KulinerWidgets(),
-                  // KulinerWidgetsDua(),
+                ][_tabController.index],
+              ),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      "Nearby your location",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                   },
+                   child: Text(
+                    'See All',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF674AEF),
+                    ),
+                   ),
+                   
+                    )
+                  ],
+                ),
+              SizedBox(height: 10),
+              Center(
+                child: [
+                  RestoDestinationWidget(),
                 ][_tabController.index],
               ),
             ],
