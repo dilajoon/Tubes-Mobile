@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => EventProvider(),
       child: MaterialApp(
-        title: 'Your App',
+        title: 'Big Holiday',
         home: DashboardPage(),
       ),
     );
