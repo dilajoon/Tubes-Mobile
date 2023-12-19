@@ -57,9 +57,15 @@ class SessionManager {
     return _preferences!.getBool('isLogin');
   }
 
-  Future<void> clearUserData() async {
+  Future<void> clearUserData(BuildContext context) async {
     await _preferences!.remove('isLogin');
     await _preferences!.remove('email');
     await _preferences!.clear();
+
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const LoginPage()),
+      (route) => false,
+    );
   }
 }
