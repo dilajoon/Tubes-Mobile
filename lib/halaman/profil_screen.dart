@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:wisata_app/halaman/dashboard_screen.dart';
+import 'package:wisata_app/helper/session_manager.dart';
 import 'package:wisata_app/main.dart';
 import 'package:wisata_app/widgets/home_bottom_bar.dart';
 
@@ -82,13 +83,16 @@ class ProfilScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 30,),
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.all(15),
-              ),
-              child: const Text('Sign Out'),
+           ElevatedButton(
+            onPressed: () async {
+              SessionManager sessionManager = await SessionManager.getInstance();
+              await sessionManager.clearUserData(context);
+            },
+            style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.all(15),
             ),
+            child: const Text('Sign Out'),
+          ),
           ],
         ),
       ),
