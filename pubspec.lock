@@ -224,6 +224,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
+<<<<<<< HEAD
   image_picker:
     dependency: "direct main"
     description:
@@ -234,6 +235,10 @@ packages:
     version: "0.8.9"
   image_picker_android:
     dependency: transitive
+=======
+  intl:
+    dependency: "direct main"
+>>>>>>> b536776da2ad4d74a191d5ec19b9a35cc5ff537c
     description:
       name: image_picker_android
       sha256: ecdc963d2aa67af5195e723a40580f802d4392e31457a12a562b3e2bd6a396fe

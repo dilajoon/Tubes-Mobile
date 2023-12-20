@@ -28,21 +28,21 @@ class _ItemsWidgetState extends State<ItemsWidget> {
   ];
 
   List locations = [
-    'Campaka',
-    'Pasir Kuda',
-    'Cidaun',
-    'Sidang Barang',
-    'Cipanas',
-    'Cibodas',
+    'Sukadana, Kec. Campaka, Kabupaten Cianjur, Jawa Barat',
+    'Desa Karangjaya, Kecamatan Pasirkuda, Kabupaten Cianjur, Provinsi Jawa Barat, Indonesia',
+    'Jl. Pantai Jayanti, Cidamar, Kec. Cidaun, Kabupaten Cianjur, Jawa Barat 43275',
+    'G5J9+26J, Saganten, Kec. Sindangbarang, Kabupaten Cianjur, Jawa Barat 43272',
+    'Jl. Mariwati No.KM. 7, Kawungluwuk, Kec. Sukaresmi, Kabupaten Cianjur, Jawa Barat 43254',
+    'Jl. Kebun Raya Cibodas, Sindangjaya, Kec. Cipanas, Kabupaten Cianjur, Jawa Barat 43253',
   ];
 
   List descriptions = [
-    'Deskripsi Curug Cikondang...',
-    'Deskripsi Curug Citambur...',
-    'Deskripsi Pantai Jayanti...',
-    'Deskripsi Pantai Karangpotong...',
-    'Deskripsi Taman Bunga Nusantara...',
-    'Deskripsi Gunung Gede...',
+    'Curug Cikondang adalah salah satu air terjun yang terletak di kawasan Cianjur, Jawa Barat, Indonesia. "Curug" adalah istilah dalam bahasa Sunda yang artinya air terjun. Curug Cikondang menawarkan pemandangan alam yang memukau dengan keindahan air terjunnya dan suasana sekitar yang alami.',
+    'Curug Citambur adalah sebuah curug atau air terjun yang ketinggiannya kira-kira 130 meter di Kabupaten Cianjur bagian Selatan, Provinsi Jawa Barat,',
+    'Pantai Jayanti adalah sebuah pantai yang terletak di Desa Cidamar, Kecamatan Cidaun, Kabupaten Cianjur, Jawa Barat. Pantai ini berdampingan dengan Cagar Alam Bojonglarang dan pelabuhan nelayan.',
+    'Pantai Karangpotong adalah sebuah pantai yang terletak di daerah Karangpapak, Cianjur, Jawa Barat, Indonesia. Pantai ini terkenal karena keindahan pemandangannya yang menakjubkan dengan garis pantai yang panjang, pasir putihnya yang halus, serta air laut yang jernih.',
+    'Taman Bunga Nusantara adalah sebuah taman bunga seluas 35 hektare yang terletak dekat Gunung Gede Pangrango dan Kebun Teh Bogor dengan jarak tempuh sekitar 2,5 - 3 jam perjalanan dari Jakarta, tepatnya berada di antara dua desa yaitu, Kawungluwuk, Sukaresmi, Cianjur dengan Sukawangi, Sukamakmur, Jonggol.',
+    'Gunung Gede merupakan sebuah gunung berapi kerucut yang berada di bagian barat Pulau Jawa, Indonesia. Gunung Gede berada dalam ruang lingkup Taman Nasional Gede Pangrango, yang merupakan salah satu dari lima taman nasional yang pertama kali diumumkan di Indonesia pada tahun 1980.',
   ];
 
   List<bool> isFavoriteList = List.generate(6, (index) => false);
@@ -59,7 +59,7 @@ class _ItemsWidgetState extends State<ItemsWidget> {
       physics: NeverScrollableScrollPhysics(),
       crossAxisCount: 2,
       shrinkWrap: true,
-      childAspectRatio: (150 / 195),
+      childAspectRatio: (257 / 450),
       children: [
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -87,21 +87,21 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => WisataScreen(
-                                // imgs[i],
-                                // names[i],
-                                // locations[i],
-                                // descriptions[i],
+                              builder: (context) => SingleItemScreen(
+                                imgs[i],
+                                names[i],
+                                locations[i],
+                                descriptions[i],
                               ),
                             ),
                           );
                         },
                         child: Container(
-                          margin: EdgeInsets.all(10),
+                          margin: EdgeInsets.symmetric(vertical: 1, horizontal: 1),
                           child: Image.asset(
                             "assets/images/${imgs[i]}.jpg",
-                            width: 140,
-                            height: 140,
+                            width: 240,
+                            height: 240,
                             fit: BoxFit.contain,
                           ),
                         ),
@@ -123,7 +123,8 @@ class _ItemsWidgetState extends State<ItemsWidget> {
                               ),
                               SizedBox(height: 10),
                               Text(
-                                locations[i],
+                                'Cianjur',
+                                maxLines:3,
                                 style: TextStyle(
                                   fontSize: 15,
                                   color: Colors.black,

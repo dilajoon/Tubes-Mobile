@@ -60,7 +60,7 @@ class _KulinerWidgetsState extends State<KulinerWidgets> {
       physics: NeverScrollableScrollPhysics(),
       crossAxisCount: 2,
       shrinkWrap: true,
-      childAspectRatio: (150 / 195),
+      childAspectRatio: (257 / 450),
       children: [
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -98,11 +98,11 @@ class _KulinerWidgetsState extends State<KulinerWidgets> {
                           );
                         },
                         child: Container(
-                          margin: EdgeInsets.all(10),
+                          margin: EdgeInsets.symmetric(vertical: 1, horizontal: 1),
                           child: Image.asset(
                             "assets/images/${img[i]}.jpg",
-                            width: 140,
-                            height: 140,
+                            width: 240,
+                            height: 240,
                             fit: BoxFit.contain,
                           ),
                         ),

@@ -36,7 +36,11 @@ dependencies:
   flutter_svg: ^2.0.9
   google_fonts: ^6.1.0
   google_nav_bar: ^5.0.6
+<<<<<<< HEAD
   intl: ^0.18.0
+=======
+  intl: ^0.18.1
+>>>>>>> b536776da2ad4d74a191d5ec19b9a35cc5ff537c
   lottie: ^2.7.0
   provider: ^6.1.1
   shared_preferences: ^2.2.2
