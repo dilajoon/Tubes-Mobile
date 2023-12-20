@@ -158,7 +158,7 @@ class DashboardPage extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
-                              color: Colors.black.withOpacity(0.7),
+                              color: Colors.black,
                             ),
                           )
                         ],
@@ -211,37 +211,34 @@ class DashboardPage extends StatelessWidget {
                     return InkWell( 
                       child: Container(
                         padding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                        EdgeInsets.all(1),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: Color(0xFFF5F3FF),
                         ),
                         child: Column(
                           children: [
-                            Padding(
-                              padding: EdgeInsets.all(10),
-                              child: Image.asset(
+                              Image.asset(
                                 "assets/images/${imgList[index]}.jpg",
-                                width: 100,
-                                height: 100,
+                                width: 150,
+                                height: 150,
                               ),
-                            ),
-                            SizedBox(height: 10),
+                            SizedBox(height: 1),
                             Text(
                               nameList[index],
                               style: TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.w600,
-                                color: Colors.black.withOpacity(0.6),
+                                color: Colors.black,
                               ),
                             ),
-                            SizedBox(height: 10),
+                            SizedBox(height: 1),
                             Text(
                               "Wisata Terdekat",
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w500,
-                                color: Colors.black.withOpacity(0.5),
+                                color: Colors.black,
                               ),
                             )
                           ],

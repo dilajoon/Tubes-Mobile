@@ -24,7 +24,7 @@ class _DestinationWidgetState extends State<DestinationWidget> {
     'Sukadana, Kec. Campaka, Kabupaten Cianjur, Jawa Barat',
     'Jl. Pantai Jayanti, Cidamar, Kec. Cidaun, Kabupaten Cianjur, Jawa Barat 43275',
     'Jl. Mariwati No.KM. 7, Kawungluwuk, Kec. Sukaresmi, Kabupaten Cianjur, Jawa Barat 43254',
-    'Cibodas',
+    'Jl. Kebun Raya Cibodas, Sindangjaya, Kec. Cipanas, Kabupaten Cianjur, Jawa Barat 43253',
   ];
 
   List deskripsi = [
@@ -46,7 +46,7 @@ class _DestinationWidgetState extends State<DestinationWidget> {
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        height: 200,
+        height: 165,
         child: PageView.builder(
           physics: BouncingScrollPhysics(),
           itemCount: imgs.length,

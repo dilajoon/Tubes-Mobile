@@ -2,39 +2,39 @@ import 'package:flutter/material.dart';
 
 class RestoDestinationWidget extends StatefulWidget {
   @override
-  _RestoDestinationWidget createState() => _RestoDestinationWidget();
+  _RestoDestinationWidgetState createState() => _RestoDestinationWidgetState();
 }
 
-class _RestoDestinationWidget extends State<RestoDestinationWidget> {
-  List img = [
+class _RestoDestinationWidgetState extends State<RestoDestinationWidget> {
+  List<String> img = [
     'satemaranggi',
     'sabore',
     'ikanbakar',
     'alamsunda',
   ];
 
-  List names = [
+  List<String> names = [
     'Sate Maranggi',
     'Sabore Kitchen',
     'Ikan Bakar Cianjur',
     'Alam Sunda',
   ];
 
-  List lokasi = [
+  List<String> locations = [
     'Jl. Moch. Ali No.66, Solokpandan, Kec. Cianjur, Kabupaten Cianjur, Jawa Barat 43214',
     'Jl. K. H. Hasyim Ashari No.44 46, RW.Warujajar, Solokpandan, Kec. Cianjur, Kabupaten Cianjur, Jawa Barat 43214',
     'Jl. Dr. Muwardi No.141, Bojongherang, Kec. Cianjur, Kabupaten Cianjur, Jawa Barat 43216',
     'Solokpandan, Jl. HOS Cokro Aminoto No.11, Muka, Kec. Cianjur, Kabupaten Cianjur, Jawa Barat 43215',
   ];
 
-  List deskripsi = [
+  List<String> descriptions = [
     'Sate Maranggi Sate Maranggi adalah salah satu jenis kuliner khas Kabupaten Purwakarta yang biasanya terdiri dari potongan daging berbentuk dadu berukuran sekitar 1 cm.',
     'Sabore Kitchen menyajikan berbagai menu dengan rasa yang bikin meleleh di lidah dan harga yang cukup terjangkau. Cafe Sabore Kitchen selain mempunyai rasa masakan yang khas, juga menyediakan tempat yang tentunya sangat cocok untuk nongkrong bersama pasangan dan keluarga.',
     'Ikan bakar adalah hidangan khas Indonesia yang terkenal karena cita rasanya yang lezat dan unik. Proses memasaknya melibatkan memanggang ikan dengan bumbu-bumbu khas Indonesia di atas panggangan atau arang, memberikan rasa yang khas dan aroma yang menggugah selera.',
     'Alam Sunda merupakan hidangan-hidangan khas Sunda yang lezat dan kaya akan cita rasa tradisional.'
   ];
 
-  List<bool> isFavoriteList = List.generate(6, (index) => false);
+  List<bool> isFavoriteList = List.generate(4, (index) => false);
 
   void _toggleFavorite(int index) {
     setState(() {
@@ -46,7 +46,7 @@ class _RestoDestinationWidget extends State<RestoDestinationWidget> {
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        height: 200,
+        height: 165,
         child: PageView.builder(
           physics: BouncingScrollPhysics(),
           itemCount: img.length,
@@ -57,8 +57,8 @@ class _RestoDestinationWidget extends State<RestoDestinationWidget> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
-                elevation: 5,
                 color: Colors.white,
+                elevation: 5,
                 child: InkWell(
                   onTap: () {
                     Navigator.push(
@@ -67,8 +67,8 @@ class _RestoDestinationWidget extends State<RestoDestinationWidget> {
                         builder: (context) => SingleItemScreen(
                           img[index],
                           names[index],
-                          lokasi[index],
-                          deskripsi[index],
+                          locations[index],
+                          descriptions[index],
                         ),
                       ),
                     );
@@ -101,7 +101,7 @@ class _RestoDestinationWidget extends State<RestoDestinationWidget> {
                               ),
                               SizedBox(height: 8),
                               Text(
-                                lokasi[index],
+                                locations[index],
                                 style: TextStyle(
                                   fontSize: 15,
                                   color: Colors.black,
@@ -122,6 +122,8 @@ class _RestoDestinationWidget extends State<RestoDestinationWidget> {
     );
   }
 }
+
+
 
 class SingleItemScreen extends StatelessWidget {
   final String img;
